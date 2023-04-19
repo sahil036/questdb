@@ -22,3 +22,18 @@ public class AuthTlsExample {
         }
     }
 }
+import io.questdb.*;
+
+public class Quest {
+    public static void main(String[] args) {
+        try (Journal journal = new JournalFactory().reader("example_journal")) {
+            JournalEntryReader reader = journal.select("select * from table_name");
+
+            while (reader.hasNext()) {
+                System.out.println(reader.getRecord());
+            }
+        } catch (JournalException e) {
+            e.printStackTrace();
+        }
+    }
+}
